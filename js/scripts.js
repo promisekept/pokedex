@@ -5,15 +5,38 @@ let pokemonRepository = (function () {
     { name: "Pidgey", height: 0.3, types: ["flying", "normal"] },
     { name: "Nidoking", height: 1.4, types: ["ground", "poison"] },
   ];
-  function add(name, height, type) {
-    pokemonList.push(name, height, type);
+  function add(pokemon) {
+    let correctParameters = true;
+    if (typeof pokemon === "object") {
+      Object.keys(pokemon).forEach(function (property) {
+        if (
+          !(property === "name" || property === "height" || property === "type")
+        ) {
+          correctParameters = false;
+        }
+      });
+    }
+    if (correctParameters) {
+      pokemonList.push(pokemon);
+    }
   }
   function getAll() {
     return pokemonList;
   }
+  function findPokemon(name) {
+    let pokemon = pokemonList.filter((pokemon) => pokemon.name === name)[0];
+    document.write(`
+    Found: 
+    ${pokemon.name}
+    ${pokemon.height}
+    ${pokemon.types}
+    `);
+  }
+
   return {
     add: add,
     getAll: getAll,
+    findPokemon: findPokemon,
   };
 })();
 
