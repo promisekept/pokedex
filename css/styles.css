@@ -1,0 +1,23 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+.button {
+  background-color: red;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  color: white;
+  font-weight: bolder;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.pokemon-list {
+  list-style-type: none;
+}
