@@ -1,11 +1,8 @@
 let pokemonRepository = (function () {
-  let pokemonList = [
-    { name: "Bulbasaur", height: 0.7, types: ["grass", "poison"] },
-    { name: "Ivysaur", height: 1, types: ["grass", "poison"] },
-    { name: "Pidgey", height: 0.3, types: ["flying", "normal"] },
-    { name: "Nidoking", height: 1.4, types: ["ground", "poison"] },
-  ];
+  let pokemonList = [];
+
   function add(pokemon) {
+    console.log(pokemon);
     let correctParameters = true;
     if (typeof pokemon === "object") {
       Object.keys(pokemon).forEach(function (property) {
@@ -40,9 +37,6 @@ let pokemonRepository = (function () {
     button.classList.add("button");
     listItem.appendChild(button);
     pokemonUOList.appendChild(listItem);
-    // button.addEventListener("click", function () {
-    //   showDetails(pokemon.name);
-    // });
     addListener(button, pokemon);
   }
   function showDetails(pokemon) {
@@ -54,12 +48,30 @@ let pokemonRepository = (function () {
     });
   }
 
+  function LoadList() {
+    return fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (list) {
+        list.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name,
+            url: item.url,
+          };
+          add(pokemon);
+        });
+      });
+  }
+  LoadList();
+  console.log(pokemonList);
   return {
     add: add,
     getAll: getAll,
     findPokemon: findPokemon,
     addListItem: addListItem,
     showDetails: showDetails,
+    LoadList: LoadList,
   };
 })();
 
