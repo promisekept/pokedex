@@ -5,23 +5,70 @@
 * Browsers: last 4 version
 */
 
-.button {
-  background-color: red;
-  border-radius: 1rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  color: white;
-  font-weight: bolder;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.button:hover {
-  cursor: pointer;
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pokemon-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   list-style-type: none;
 }
 
 .ul_invisible {
   display: none;
+}
+
+.theModal {
+  position: fixed;
+  width: 15rem;
+  height: 15rem;
+  background-color: lightgreen;
+  z-index: 999;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0.4rem;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.theModal img {
+  align-self: center;
+}
+
+.theModal button {
+  border: none;
+  background-color: inherit;
+}
+
+.button {
+  background-color: #ff0000;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  color: white;
+  font-weight: bolder;
+  width: 150px;
+  /* min-width: 20%; */
+  text-align: center;
+}
+
+.button:hover {
+  cursor: pointer;
 }

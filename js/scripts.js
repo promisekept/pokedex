@@ -37,12 +37,13 @@ let pokemonRepository = (function () {
     addListener(button, pokemon);
   }
   function showDetails(pokemon) {
-    loadDetails(pokemon);
+    loadDetails(pokemon).then(function () {
+      showModal(pokemon.name, pokemon.height, pokemon.imageUrl);
+    });
   }
   function addListener(button, pokemon) {
     button.addEventListener("click", function () {
       showDetails(pokemon);
-      console.log(pokemon);
     });
   }
 
@@ -100,6 +101,51 @@ let pokemonRepository = (function () {
     elementToRemove.parentElement.removeChild(elementToRemove);
   }
 
+  function showModal(name, height, url) {
+    // create the modal and add it to the container
+    let container = document.querySelector(".container");
+    let theModal = document.createElement("div");
+    theModal.classList.add("theModal");
+    container.appendChild(theModal);
+
+    container.addEventListener("click", function (e) {
+      let modalParent = document.querySelector(".theModal");
+      if (modalParent && e.target) {
+        !modalParent.contains(e.target) && hideModal();
+      }
+    });
+
+    //add information about the pokemon
+    let topRow = document.createElement("div");
+    topRow.classList.add("topRow");
+    let pokemonName = document.createElement("h3");
+    pokemonName.innerText = name;
+    let pokemonHeight = document.createElement("span");
+    pokemonHeight.innerText = `height: ${height}`;
+    let closeButton = document.createElement("button");
+    closeButton.innerText = "X";
+    closeButton.addEventListener("click", hideModal);
+    let pokemonImg = document.createElement("img");
+    pokemonImg.setAttribute("src", `${url}`);
+    topRow.appendChild(pokemonName);
+    topRow.appendChild(closeButton);
+    theModal.appendChild(topRow);
+    theModal.appendChild(pokemonHeight);
+    theModal.appendChild(pokemonImg);
+  }
+  //Hides the modal
+  function hideModal() {
+    let modal = document.querySelectorAll(".theModal");
+    for (const elem of modal) {
+      elem.remove();
+    }
+  }
+  //hides the modal when escape is pressed
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      hideModal();
+    }
+  });
   return {
     add: add,
     getAll: getAll,
